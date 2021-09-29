@@ -1,8 +1,9 @@
 from django.db import models
 from django.db.models.fields.related import ForeignKey
-
+from django.urls import  reverse
 # Create your models here.
 class Hospital(models.Model):
+    photo = models.ImageField(upload_to='main', null=True,blank=True)
     name = models.CharField('Название',max_length=100) 
     REGION = [
         ('Osh', 'Ошская'),
@@ -71,9 +72,15 @@ class Doctor(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('index')
+    
     class Meta:
         verbose_name = 'Личаший врач'
         verbose_name_plural = 'Личашие врач'
+
+
 
 class Patients(models.Model):
     name = models.CharField('ФИО',max_length=255)
@@ -94,4 +101,6 @@ class Patients(models.Model):
         verbose_name = 'Пациент'
         verbose_name_plural = 'Поциенты'
 
+    def get_absolute_url(self):
+        return reverse('index')
         
